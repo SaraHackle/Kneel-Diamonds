@@ -1,21 +1,22 @@
-import { getMetals } from "./database.js";
+import { getMetals, setMetal } from "./database.js";
+
+document.addEventListener("change", (event) => {
+if (event.target.name === "metal") {
+    setMetal(parseInt(event.target.value));
+  }
+});
 
 const metals = getMetals();
-
-document.addEventListener("change", (event) => {});
 
 export const Metals = () => {
   let html = "<ul>";
 
-  // Use .map() for converting objects to <li> elements
-  const listItems = metals.map((metal) => {
-    return `<li>
+  for (const metal of metals) {
+    html += `<li>
             <input type="radio" name="metal" value="${metal.id}" /> ${metal.metal}
         </li>`;
-  });
+  }
 
-  html += listItems.join("");
   html += "</ul>";
-
   return html;
 };
